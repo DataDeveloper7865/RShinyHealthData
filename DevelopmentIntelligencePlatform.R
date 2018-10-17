@@ -1,4 +1,5 @@
 library(shiny)
+library(dplyr)
 
 
 ##insert data file here
@@ -13,7 +14,7 @@ myData <- read.csv("C:/Users/Stephen/Desktop/R Projects/practice datasets/NCHS_-
         
         sidebarPanel(
           ###add input functions here
-          checkboxGroupInput(inputId = "year", label = "select year to view", choices = myData$Year)
+          checkboxGroupInput(inputId = "year", label = "select year to view", choices = unique(sort(myData$Year)))
           
           ),
   
@@ -22,7 +23,7 @@ myData <- read.csv("C:/Users/Stephen/Desktop/R Projects/practice datasets/NCHS_-
         mainPanel(
           
           ####add output functions here
-          plotOutput(outputId = "DeathsHisto"),
+          #plotOutput(outputId = "DeathsHisto"),
           textOutput(outputId = "YearsSelected")
         )
       )
@@ -34,11 +35,11 @@ myData <- read.csv("C:/Users/Stephen/Desktop/R Projects/practice datasets/NCHS_-
 ### 3)Use input values with input$ eg.... input$molecules
 server <- function(input, output) {
 
-    output$DeathsHisto <- renderPlot({ 
+    #output$DeathsHisto <- renderPlot({ 
       
-      hist(myData$Deaths)
+      #hist(myData$Deaths)
       
-    })
+    #})
   
     
     output$YearsSelected <- renderText({
