@@ -46,26 +46,8 @@ server <- function(input, output) {
         xlab("Type of Species") +
         ylab("Relative % of Species")+
         title("icIEF Data for Historical Development Molecules")
-      
-      
-      ##     boxplot(myData$acidic1year, 
- ##             myData$Main1year, 
- ##             myData$basic.1year,
- ##             data = myData,
- ##             names = c("Acidic", 
- ##                      "Main", 
-  ##                      "Basic"),
-  ##            col = c("grey50", 
-   ##                   "grey50",
-  ##                    "grey50"),
- ##             ylab = "% Relative Species",
-  ##            main = "Acidics at 1 Year")
- ##     stripchart(myData$acidic1year[myData$Mol==input$molecules], 
-  ##               myData$Main1year[myData$Mol==input$molecules], 
-  ##               myData$basic.1year[myData$Mol==input$molecules],
-  ##               vertical = TRUE, data = myData, method = "jitter", add = TRUE, pch = 20, col = "blue")
-      
     })
+    
     
     output$summary <- renderPrint({
       summary(myData)
