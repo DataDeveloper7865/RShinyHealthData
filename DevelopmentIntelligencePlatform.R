@@ -14,8 +14,17 @@ myData <- read.csv("C:/Users/Stephen/Desktop/R Projects/practice datasets/NCHS_-
         
         sidebarPanel(
           ###add input functions here
-          checkboxGroupInput(inputId = "year", label = "select year to view", choices = unique(sort(myData$Year)))
           
+          ###User Selects Years
+          checkboxGroupInput(inputId = "year", label = "select year to view", choices = unique(sort(myData$Year))),
+          
+        
+          ###User Selects A Disease
+          checkboxGroupInput(inputId = "disease", label = "select disease to view", choices = unique(sort(myData$Cause.Name))),
+          
+          ###User Selects A State
+          checkboxGroupInput(inputId = "state", label = "select state to view", choices = unique(sort(myData$State)))
+        
           ),
   
         
@@ -23,8 +32,11 @@ myData <- read.csv("C:/Users/Stephen/Desktop/R Projects/practice datasets/NCHS_-
         mainPanel(
           
           ####add output functions here
-          #plotOutput(outputId = "DeathsHisto"),
-          textOutput(outputId = "YearsSelected")
+          plotOutput(outputId = "DeathsHisto"),
+          textOutput(outputId = "YearsSelected"),
+          textOutput(outputId = "DiseaseSelected"),
+          textOutput(outputId = "StateSelected")
+          
         )
       )
     )
@@ -35,15 +47,26 @@ myData <- read.csv("C:/Users/Stephen/Desktop/R Projects/practice datasets/NCHS_-
 ### 3)Use input values with input$ eg.... input$molecules
 server <- function(input, output) {
 
-    #output$DeathsHisto <- renderPlot({ 
+    output$DeathsHisto <- renderPlot({ 
       
-      #hist(myData$Deaths)
+      plot(myData$Deaths[myData$Year == input$year & myData$State == input$state], c(1:as.integer(count(myData$Deaths[myData$Year == input$year & myData$State == input$state]))),
+           main = input$year,
+           ylab = "# of deaths",
+           xlab = "Year")
       
-    #})
+    })
   
     
     output$YearsSelected <- renderText({
         input$year
+      })
+    
+    output$DiseaseSelected <- renderText({
+      input$disease
+      })
+    
+    output$StateSelected <- renderText({
+      input$state
       })
 
 }
